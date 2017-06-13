@@ -12,5 +12,5 @@ app.use(express.static('../public'));
 // Listen for requests
 var server = app.listen(app.get('port'), function() {
   var port = server.address().port;
-  console.log('MediaStream example app listening on port ' + port);
+  console.log('Webcam example app listening on port ' + port);
 });
