@@ -1,3 +1,5 @@
+//Using local peer connection
+
 'use strict';
 
 var startButton = document.getElementById('startButton');
@@ -14,11 +16,11 @@ var localVideo =  document.getElementById('localVideo');
 var remoteVideo =  document.getElementById('remoteVideo');
 
 localVideo.addEventListener('loadedmetadata', function() {
-  console.log('Local videoWidth ' + this.videoWidth + 'px, videoHeight: ' + this.videoHeight + 'px');
+  console.log('Local video videoWidth ' + this.videoWidth + 'px, videoHeight: ' + this.videoHeight + 'px');
 });
 
 remoteVideo.addEventListener('loadedmetadata', function() {
-  console.log('Remote videoWidth ' + this.videoWidth + 'px, videoHeight: ' + this.videoHeight + 'px');
+  console.log('Remote video videoWidth ' + this.videoWidth + 'px, videoHeight: ' + this.videoHeight + 'px');
 });
 
 remoteVideo.onresize = function() {
@@ -44,7 +46,7 @@ function getName(pc) {
 }
 
 function getOtherPc(pc) {
-  return (pc === pc1) ? 'pc2' : 'pc1';
+  return (pc === pc1) ? pc2 : pc1;
 }
 
 function gotStream(stream) {
@@ -97,7 +99,7 @@ function call() {
   pc2.oniceconnectionstatechange = function(e) {
     onIceStateChange(pc2, e);
   };
-  pc2.onTrack = gotRemoteStream;
+  pc2.ontrack = gotRemoteStream;
 
   localStream.getTracks().forEach(
     function(track) {
