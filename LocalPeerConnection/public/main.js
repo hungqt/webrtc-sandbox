@@ -45,10 +45,12 @@ function getName(pc) {
   return (pc === pc1) ? 'pc1' : 'pc2';
 }
 
+//Gets the peer connection RTCPeerConnection object
 function getOtherPc(pc) {
   return (pc === pc1) ? pc2 : pc1;
 }
 
+//Used to receive the local stream
 function gotStream(stream) {
   console.log('Received local stream');
   localVideo.srcObject = stream;
@@ -56,6 +58,7 @@ function gotStream(stream) {
   callButton.disabled = false;
 }
 
+//Start button triggers this function. Starts requesting the local stream.
 function start() {
   console.log('Requesting local stream');
   startButton.disabled = true;
@@ -69,6 +72,8 @@ function start() {
   });
 }
 
+//Starting the call
+//Creating local and peer connection
 function call() {
   callButton.disabled = true;
   hangupButton.disabled = false;
@@ -186,8 +191,6 @@ function onCreateAnswerSuccess(desc) {
 }
 
 function onIceCandidate(pc, event) {
-  console.log(event);
-  console.log(event.candidate);
   getOtherPc(pc).addIceCandidate(event.candidate)
   .then(
     function() {
@@ -224,3 +227,17 @@ function hangup() {
   hangupButton.disabled = true;
   callButton.disabled = false;
 }
+
+//DATA CHANNEL PART STARTS FROM HERE
+
+var localConnection;
+var remoteConnection;
+var sendChannel;
+var receiveChannel;
+var pcConstraint;
+var dataConstraint;
+var dataChannelSend = document.querySelector('textarea#dataChannelSend');
+var dataChannelReceive = document.getElementById('dataChannelReceive');
+var startButton = document.querySelector('button#startButton');
+var sendButton = document.querySelector('button#sendButton');
+var closeButton = document.querySelector('button#closeButton');
