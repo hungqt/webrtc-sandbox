@@ -11,11 +11,10 @@
   <video id="localVideo" controls autoplay></video>
   <video id="remoteVideo" controls autoplay></video>
 
-  <div>
+  <div id="videoButtons">
     <button id="startButton">Start</button>
     <button id="callButton">Call</button>
     <button id="hangupButton">Hang Up</button>
-    <button id="sendButton"> Send </button>
   </div>
 
   <div id="sendReceive">
@@ -27,6 +26,12 @@
       <h2>Receive</h2>
       <textarea id="dataChannelReceive" disabled></textarea>
     </div>
+  </div>
+
+  <div id="dataButtons">
+    <button id="startDataButton"> Start Data Sending</button>
+    <button id="sendButton" disabled> Send </button>
+    <button id="closeButton" disabled>Close</button>
   </div>
 
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
