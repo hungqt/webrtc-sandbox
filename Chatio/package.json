@@ -9,6 +9,7 @@
   "author": "Hung",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "express": "^4.15.3",
     "socket.io": "^2.0.3"
   }
