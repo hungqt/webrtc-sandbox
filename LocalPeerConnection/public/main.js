@@ -228,7 +228,9 @@ function hangup() {
   callButton.disabled = false;
 }
 
-//DATA CHANNEL PART STARTS FROM HERE
+//////////////////////////////////////
+//DATA CHANNEL PART STARTS FROM HERE//
+//////////////////////////////////////
 
 var localConnection;
 var remoteConnection;
