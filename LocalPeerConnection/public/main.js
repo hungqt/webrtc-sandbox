@@ -249,7 +249,7 @@ sendButton.onclick = sendData;
 closeButton.onclick = closeDataChannels;
 
 function enableStartButton(){
-  startButton.disabled = false;
+  startDataButton.disabled = false;
 }
 
 function disableSendButton() {
@@ -294,7 +294,7 @@ function createConnection() {
     onCreateSessionDescriptionError,
   );
 
-  startButton.disabled = true;
+  startDataButton.disabled = true;
   closeButton.disabled = false;
 }
 
@@ -315,7 +315,7 @@ function closeDataChannels() {
   localConnection = null;
   remoteConnection = null;
   console.log('Closed peer connections');
-  startButton.disabled = false;
+  startDataButton.disabled = false;
   sendButton.disabled = true;
   closeButton.disabled = true;
   dataChannelSend.value = '';
