@@ -1,8 +1,8 @@
 'use strict';
 
-var isInfitiator;
+var isInitiator;
 
-window.room = prompt("Enter room name: ");
+window.room = prompt("Enter room name:");
 
 var socket = io.connect();
 
@@ -12,7 +12,7 @@ if(room !== "") {
 }
 
 socket.on('created', function(room, clientId) {
-  isInfitiator = true;
+  isInitiator = true;
 });
 
 socket.on('full', function(room) {
@@ -24,7 +24,7 @@ socket.on('ipaddr', function(ipaddr) {
 });
 
 socket.on('joined', function(room, clientId) {
-  isInfitiator = false;
+  isInitiator = false;
 });
 
 socket.on('log', function(array) {
