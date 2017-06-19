@@ -13,7 +13,7 @@ var app = http.createServer(function(req, res) {
 var io = socketIO.listen(app);
 io.sockets.on('connection', function(socket) {
 
-  // Convenience function to log server messages on the client
+  // convenience function to log server messages on the client
   function log() {
     var array = ['Message from server:'];
     array.push.apply(array, arguments);
@@ -22,8 +22,7 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('message', function(message) {
     log('Client said: ', message);
-    // For a real app, would be room-only (not broadcast)
-    // Broadcast is fore everyone!
+    // for a real app, would be room-only (not broadcast)
     socket.broadcast.emit('message', message);
   });
 
@@ -38,14 +37,13 @@ io.sockets.on('connection', function(socket) {
       log('Client ID ' + socket.id + ' created room ' + room);
       socket.emit('created', room, socket.id);
 
-    } else if (numClients === 2){
+    } else if (numClients === 2) {
       log('Client ID ' + socket.id + ' joined room ' + room);
       io.sockets.in(room).emit('join', room);
       socket.join(room);
       socket.emit('joined', room, socket.id);
       io.sockets.in(room).emit('ready');
-
-    } else { // Max two clients
+    } else { // max two clients
       socket.emit('full', room);
     }
   });
@@ -60,4 +58,9 @@ io.sockets.on('connection', function(socket) {
       });
     }
   });
+
+  socket.on('bye', function(){
+    console.log('received bye');
+  });
+
 });
