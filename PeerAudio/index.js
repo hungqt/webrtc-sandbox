@@ -31,7 +31,12 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('create or join', function(room) {
     log('Received request to create or join room ' + room);
-    
 
+
+  });
+
+  socket.on('message', function(message) {
+    log('Client said: ', message);
+    socket.broadcast.emit('message', message);
   })
 });
