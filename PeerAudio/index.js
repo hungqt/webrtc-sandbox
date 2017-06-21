@@ -4,14 +4,17 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+var path = require("path");
 var connections = [];
 
 server.listen(process.env.PORT || 8000);
-console.log('Server running at port ' + '8000' || ""+ process.env.PORT);
+console.log('Server running at port ' + '8000' || "" + process.env.PORT);
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html')
 });
+
+app.use('/js', express.static(path.join(__dirname, '/js')));
 
 io.sockets.on('connection', function(socket) {
   connections.push(socket);
