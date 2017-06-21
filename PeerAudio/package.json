@@ -1,0 +1,11 @@
+{
+  "name": "peeraudio",
+  "version": "1.0.0",
+  "description": "Project to send audio peer to peer using webrtc and sockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hung Quang Thieu",
+  "license": "ISC"
+}
