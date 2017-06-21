@@ -7,3 +7,4 @@
 // };
 
 var configuration = null;
+console.log("test");
