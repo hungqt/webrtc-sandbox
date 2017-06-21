@@ -8,7 +8,10 @@
   },
   "author": "Hung Quang Thieu",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.15.3",
+    "socket.io": "^2.0.3"
+  },
   "devDependencies": {
     "webrtc-adapter": "^4.0.2"
   }
