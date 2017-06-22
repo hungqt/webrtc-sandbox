@@ -11,6 +11,7 @@ console.log("test");
 
 /*******************************************************************************/
 // Signaling Server //
+/*******************************************************************************/
 
 //Connect to the signaling server
 var socket = io.connect();
@@ -18,4 +19,20 @@ var socket = io.connect();
 // Listens to the servers console logs
 socket.on('log', function(array) {
   console.log.apply(console, array);
+});
+
+socket.on('created', function(room, clientId) {
+
+});
+
+socket.on('joined', function(room, clientId) {
+
+});
+
+socket.on('full', function(room, clientId) {
+
+});
+
+socket.on('ready', function() {
+
 });
