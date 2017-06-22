@@ -1,9 +1,5 @@
 'use strict';
 
-var defaultNamespace = '/';
-
-
-
 // var configuration = {
 //   'iceServers': [{
 //     'urls': 'stun:stun.l.google.com:19302'
@@ -11,7 +7,11 @@ var defaultNamespace = '/';
 // };
 
 var configuration = null;
-console.log("test");
+
+// The default namespace is by default '/', but this variable is to use with numClientsInRoom
+var defaultNamespace = '/';
+
+
 
 /*******************************************************************************
 * Signaling Server
