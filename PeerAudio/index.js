@@ -37,7 +37,11 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('create or join', function(room) {
     log('Received request to create or join room ' + room);
-
+    if(numClientsInRoom(defaultNamespace, room) === 0 {
+      socket.join(room);
+      log('Client ID ' + socket.id + ' created room ' + room);
+      socket.emit('created', room, socket.id);
+    });
 
   });
 
@@ -47,6 +51,8 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
+/* Function to find out how many clients there are in a room
+   Used to minimize each room to contain x clients */
 function numClientsInRoom(namespace, room) {
     var clients = io.nsps[namespace].adapter.rooms[room].sockets;
     return Object.keys(clients).length;
