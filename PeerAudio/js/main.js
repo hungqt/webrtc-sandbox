@@ -28,12 +28,21 @@ socket.on('log', function(array) {
   console.log.apply(console, array);
 });
 
-socket.on('created', function(room, clientId) {
+// The client tries to create or join a room, only if the room is not blank
+if (room !== '') {
+  socket.emit('create or join', room);
+  console.log('Attempted to create or  join room', room);
+}
 
+socket.on('created', function(room, clientId) {
+  console.log('Created room ' + room);
+  isInitiator = true;
 });
 
 socket.on('joined', function(room, clientId) {
-
+  console.log('joined ' + room);
+  isInitiator = false;
+  socket.join(room);
 });
 
 socket.on('full', function(room, clientId) {
