@@ -7,6 +7,9 @@ var io = require('socket.io').listen(server);
 var path = require("path");
 var connections = [];
 
+// The default namespace is by default '/', but this variable is to use with numClientsInRoom
+var defaultNamespace = '/';
+
 server.listen(process.env.PORT || 8000);
 console.log('Server running at port ' + '8000' || "" + process.env.PORT);
 
@@ -43,3 +46,8 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('message', message);
   });
 });
+
+function numClientsInRoom(namespace, room) {
+    var clients = io.nsps[namespace].adapter.rooms[room].sockets;
+    return Object.keys(clients).length;
+}

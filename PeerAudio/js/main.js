@@ -8,9 +8,8 @@
 
 var configuration = null;
 
-// The default namespace is by default '/', but this variable is to use with numClientsInRoom
-var defaultNamespace = '/';
-
+var isInitiator;
+var room = prompt('Enter room name:');
 
 
 /*******************************************************************************
@@ -26,7 +25,7 @@ socket.on('log', function(array) {
 });
 
 socket.on('created', function(room, clientId) {
-  if(numClientsInRoom(room,))
+  
 });
 
 socket.on('joined', function(room, clientId) {
@@ -40,8 +39,3 @@ socket.on('full', function(room, clientId) {
 socket.on('ready', function() {
 
 });
-
-function numClientsInRoom(namespace, room) {
-    var clients = io.nsps[namespace].adapter.rooms[room].sockets;
-    return Object.keys(clients).length;
-}
