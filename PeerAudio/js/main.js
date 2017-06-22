@@ -8,6 +8,10 @@
 
 var configuration = null;
 
+// HTML elements
+var localAudio = document.querySelector('#localAudio');
+var remoteAudio = document.querySelector('#remoteAudio');
+
 var isInitiator;
 var room = prompt('Enter room name:');
 
@@ -25,7 +29,7 @@ socket.on('log', function(array) {
 });
 
 socket.on('created', function(room, clientId) {
-  
+
 });
 
 socket.on('joined', function(room, clientId) {
