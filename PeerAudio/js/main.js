@@ -13,7 +13,7 @@ var localAudio = document.querySelector('#localAudio');
 var remoteAudio = document.querySelector('#remoteAudio');
 
 var isInitiator;
-var room = prompt('Enter room name:');
+var room = 'test';
 
 
 /*******************************************************************************
@@ -42,7 +42,6 @@ socket.on('created', function(room, clientId) {
 socket.on('joined', function(room, clientId) {
   console.log('joined ' + room);
   isInitiator = false;
-  socket.join(room);
 });
 
 socket.on('full', function(room, clientId) {
