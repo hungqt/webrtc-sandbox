@@ -37,6 +37,7 @@ if (room !== '') {
 socket.on('created', function(room, clientId) {
   console.log('Created room ' + room);
   isInitiator = true;
+
 });
 
 socket.on('joined', function(room, clientId) {
@@ -51,3 +52,11 @@ socket.on('full', function(room, clientId) {
 socket.on('ready', function() {
 
 });
+
+/**
+* Send message to signaling server
+*/
+function sendMessage(message) {
+  console.log('Client sending message: ', message);
+  socket.emit('message', message);
+}

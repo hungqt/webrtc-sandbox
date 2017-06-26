@@ -30,6 +30,12 @@ io.sockets.on('connection', function(socket) {
     socket.emit('log', array);
   }
 
+  socket.on('message', function(message) {
+    log('Client said: ', message);
+    // for a real app, would be room-only (not broadcast)
+    socket.broadcast.emit('message', message);
+  });
+
   socket.on('disconnect', function(data) {
     connections.splice(connections.indexOf(socket), 1);
     console.log('Disconnected: %s sockets connected', connections.length);
