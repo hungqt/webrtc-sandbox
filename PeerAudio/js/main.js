@@ -175,3 +175,40 @@ function onDataChannelCreated(channel) {
   channel.onmessage = (adapter.browserDetails.browser === 'firefox') ?
   receiveDataFirefoxFactory() : receiveDataChromeFactory();
 }
+
+function receiveDataChromeFactory() {
+  var buf, count;
+
+  return function onmessage(event) {
+    if (typeof event.data === 'string') {
+      buf = window.buf = new Uint8ClampedArray(parseInt(event.data));
+      count = 0;
+      console.log('Expecting a total of ' + buf.byteLength + ' bytes');
+      return;
+    }
+
+    var data = new Uint8ClampedArray(event.data);
+    buf.set(data, count);
+
+    count += data.byteLength;
+    console.log('count: ' + count);
+
+    if (count === buf.byteLength) {
+      // Wer're done: all data chunks have been received
+      console.log('Done.');
+      // Receive Audio
+    }
+  }
+}
+
+function receiveDataFirefoxFactory() {
+
+}
+
+function randomToken() {
+  return Math.floor((1 + Math.random()) * 1e16).toString(16).substring(1);
+}
+
+function logError(err) {
+  console.log(err.toString(), err);
+}
