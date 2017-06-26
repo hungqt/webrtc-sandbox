@@ -53,6 +53,11 @@ socket.on('ready', function() {
 
 });
 
+socket.on('message', function(message) {
+  console.log('Client received message:', message);
+  signalingMessageCallback(message);
+});
+
 /**
 * Send message to signaling server
 */
