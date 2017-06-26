@@ -119,3 +119,40 @@ function signalingMessageCallback(message) {
     // BAI
   }
 }
+
+function createPeerConnection(isInitiator, config) {
+  console.log('Creating peer connection as initiator?', isInitiator, 'config', config);
+  peerCon = new RTCPeerConnection(config);
+
+  // Send any ice candidates to the other peer
+  peerCon.onicecandidate = function(event) {
+    console.log('icecandidate event: ', event);
+    if(event.candidate) {
+      sendMessage({
+        type: 'candidate',
+        label: event.candidate.sdpMLineIndex,
+        id: event.candidate.sdpMid,
+        candidate: event.candidate.candidate
+      });
+
+    } else {
+      console.log('End of candidate');
+    }
+  };
+
+  if(isInitiator) {
+    console.log('Creating Data Channel');
+    dataChannel = peerCon.createDataChannel('');
+    onDataChannelCreated(dataChannel);
+
+    console.log('Creating an offer');
+    peerCon.createOffer(onLocalSessionCreated, logError);
+
+  } else {
+    peerCon.ondatachannel = function(event) {
+      console.log('ondatachannel:', event.channel);
+      dataChannel = event.channel;
+      onDataChannelCreated(dataChannel);
+    };
+  }
+}
