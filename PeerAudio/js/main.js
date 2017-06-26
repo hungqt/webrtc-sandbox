@@ -65,3 +65,26 @@ function sendMessage(message) {
   console.log('Client sending message: ', message);
   socket.emit('message', message);
 }
+
+function getAudio(){
+  console.log('Getting user media (audio) ...');
+  navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: false,
+  })
+  .then(gotStream)
+  .catch(function(e) {
+    alert('getUserMedia() error: ' + e.name);
+  });
+}
+
+function gotStream(stream) {
+  var streamURL = window.URL.createObjectURL(stream);
+  console.log('getUserMedia Audio stream URL: ', streamURL);
+  window.stream = stream;
+  audio.src = streamURL;
+  audio.onloadedmetadata = function() {
+    console.log('Got audio stream');
+  }
+  // Show a button to record audio
+}
