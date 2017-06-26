@@ -156,3 +156,22 @@ function createPeerConnection(isInitiator, config) {
     };
   }
 }
+
+function onLocalSessionCreated(desc) {
+  console.log('local session created: ', desc);
+  peerConn.setLocalDescription(desc, function() {
+    console.log('sending local desc: ', peerConn.localDescription);
+    sendMessage(peerConn.localDescription);
+  }, logError);
+}
+
+function onDataChannelCreated(channel) {
+  console.log('onDataChannelCreated: ', channel);
+
+  channel.onopen = function() {
+    console.log('CHANNEL opened!');
+  };
+
+  channel.onmessage = (adapter.browserDetails.browser === 'firefox') ?
+  receiveDataFirefoxFactory() : receiveDataChromeFactory();
+}
