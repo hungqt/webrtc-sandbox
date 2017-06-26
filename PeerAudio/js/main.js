@@ -66,6 +66,10 @@ function sendMessage(message) {
   socket.emit('message', message);
 }
 
+/****************************************************************************
+* User media (audio)
+****************************************************************************/
+
 function getAudio(){
   console.log('Getting user media (audio) ...');
   navigator.mediaDevices.getUserMedia({
@@ -88,3 +92,10 @@ function gotStream(stream) {
   }
   // Show a button to record audio
 }
+
+/****************************************************************************
+* WebRTC peer connection and data channel
+****************************************************************************/
+
+var peerCon;
+var dataChannel;
