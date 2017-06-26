@@ -196,13 +196,47 @@ function receiveDataChromeFactory() {
     if (count === buf.byteLength) {
       // Wer're done: all data chunks have been received
       console.log('Done.');
-      // Receive Audio
+      //TODO: Receive Audio
     }
   }
 }
 
 function receiveDataFirefoxFactory() {
+  var count, total, parts;
 
+  return function onmessage(event) {
+    if (typeof event.data === 'string') {
+      total = parseInt(event.data);
+      parts = [];
+      count = 0;
+      console.log('Expecting a total of ' + total + ' bytes');
+      return;
+    }
+
+    parts.push(event.data);
+    count += event.data.size;
+    console.log('Got ' + event.data.size + ' byte(s), ' + (total - count) +
+                ' to go.');
+
+    if (count === total) {
+      console.log('Assembling payload');
+      var buf = new Uint8ClampedArray(total);
+      var compose = function(i, pos) {
+        var reader = new FileReader();
+        reader.onload = function() {
+          buf.set(new Uint8ClampedArray(this.result), pos);
+          if (i + 1 === parts.length) {
+            console.log('Done.');
+            //TODO: Receive Audio
+          } else {
+            compose(i + 1, pos + this.result.byteLength);
+          }
+        };
+        reader.readAsArrayBuffer(parts[i]);
+      };
+      compose(0, 0);
+    }
+  };
 }
 
 function randomToken() {
