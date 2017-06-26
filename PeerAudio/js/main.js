@@ -99,3 +99,23 @@ function gotStream(stream) {
 
 var peerCon;
 var dataChannel;
+
+function signalingMessageCallback(message) {
+  if (message.type === 'offer') {
+    console.log('Got offer. Sending answer to peer.');
+    peerCon.setRemoteDescription(new RTCSessionDescription(message), function(){}, logError);
+    peerCon.createAnswer(onLocalSessionCreated, logError);
+
+  } else if (message.type === 'answer') {
+    console.log('Got answer');
+    peerCon.setRemoteDescription(new RTCSessionDescription(message) function () {}, logError);
+
+  } else if (message.type === 'candidate') {
+    peerCon.addIceCandidate(new RTCIceCandidate({
+      candidate: message.candidate
+    }));
+
+  } else if (message === 'bye') {
+    // BAI
+  }
+}
