@@ -254,6 +254,10 @@ function recordAudio() {
 }
 
 function sendData() {
+
+}
+
+function receiveData() {
   
 }
 
