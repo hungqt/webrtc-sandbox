@@ -11,6 +11,11 @@ var configuration = null;
 // HTML elements
 var localAudio = document.querySelector('#localAudio');
 var remoteAudio = document.querySelector('#remoteAudio');
+var recordBtn = document.getElementById('recordBtn');
+var sendBtn = document.getElementById('sendBtn');
+
+// Event handlers on the buttons
+
 
 var isInitiator;
 var room = 'test';
