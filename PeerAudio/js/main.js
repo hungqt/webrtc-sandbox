@@ -10,7 +10,7 @@ var configuration = null;
 
 // HTML elements
 var localAudio = document.querySelector('#localAudio');
-var remoteAudio = document.querySelector('#remoteAudio');
+// var remoteAudio = document.querySelector('#remoteAudio');
 var recordBtn = document.getElementById('recordBtn');
 var sendBtn = document.getElementById('sendBtn');
 
@@ -114,7 +114,7 @@ function signalingMessageCallback(message) {
 
   } else if (message.type === 'answer') {
     console.log('Got answer');
-    peerCon.setRemoteDescription(new RTCSessionDescription(message) function () {}, logError);
+    peerCon.setRemoteDescription(new RTCSessionDescription(message), function (){}, logError);
 
   } else if (message.type === 'candidate') {
     peerCon.addIceCandidate(new RTCIceCandidate({
@@ -258,7 +258,7 @@ function sendData() {
 }
 
 function receiveData() {
-  
+
 }
 
 function randomToken() {
