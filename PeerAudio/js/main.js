@@ -15,7 +15,8 @@ var recordBtn = document.getElementById('recordBtn');
 var sendBtn = document.getElementById('sendBtn');
 
 // Event handlers on the buttons
-
+recordBtn.addEventListener('click', recordAudio);
+sendBtn.addEventListener('click', sendData);
 
 var isInitiator;
 var room = 'test';
@@ -242,6 +243,18 @@ function receiveDataFirefoxFactory() {
       compose(0, 0);
     }
   };
+}
+
+/****************************************************************************
+* UI-related functions and ETC
+****************************************************************************/
+
+function recordAudio() {
+
+}
+
+function sendData() {
+  
 }
 
 function randomToken() {
