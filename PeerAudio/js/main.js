@@ -272,11 +272,10 @@ function recordAudio() {
 }
 
 function sendData() {
-
+  dataChannel.send('Test data. Sjekker om det kommer opp noe.')
 }
 
-function receiveData() {
-
+function receiveData(data) {
 }
 
 
