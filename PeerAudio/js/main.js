@@ -56,6 +56,8 @@ socket.on('created', function(room, clientId) {
 socket.on('joined', function(room, clientId) {
   console.log('joined ' + room);
   isInitiator = false;
+  createPeerConnection(isInitiator, configuration);
+  getAudio();
 });
 
 socket.on('full', function(room, clientId) {
@@ -90,6 +92,7 @@ function getAudio(){
     video: false,
   })
   .then(gotStream)
+  // .then(stream => audio.srcObject = gotStream(stream))
   .catch(function(e) {
     alert('getUserMedia() error: ' + e.name);
   });
@@ -111,12 +114,9 @@ function gotStream(stream) {
   var audioTracks = localStream.getAudioTracks();
   if(audioTracks.length > 0) {
     console.log('Using Audio device: ' + audioTracks[0].label);
+    console.log(localStream);
   }
-  localStream.getTracks().forEach(
-    function(track) {
 
-    }
-  );
 }
 
 /****************************************************************************
