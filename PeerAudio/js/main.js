@@ -65,7 +65,8 @@ socket.on('full', function(room, clientId) {
 });
 
 socket.on('ready', function() {
-
+  console.log('Socket is ready');
+  createPeerConnection(isInitiator, configuration);
 });
 
 socket.on('message', function(message) {
@@ -182,9 +183,9 @@ function createPeerConnection(isInitiator, config) {
 
 function onLocalSessionCreated(desc) {
   console.log('local session created: ', desc);
-  peerConn.setLocalDescription(desc, function() {
-    console.log('sending local desc: ', peerConn.localDescription);
-    sendMessage(peerConn.localDescription);
+  peerCon.setLocalDescription(desc, function() {
+    console.log('sending local desc: ', peerCon.localDescription);
+    sendMessage(peerCon.localDescription);
   }, logError);
 }
 
