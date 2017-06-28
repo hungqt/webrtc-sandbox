@@ -7,6 +7,7 @@
 // };
 
 var configuration = null;
+var localStream;
 
 // HTML elements
 var localAudio = document.querySelector('#localAudio');
@@ -18,7 +19,13 @@ var sendBtn = document.getElementById('sendBtn');
 recordBtn.addEventListener('click', recordAudio);
 sendBtn.addEventListener('click', sendData);
 
+// Peerconnection and data channel variables
+var peerCon;
+var dataChannel;
+
+// isInitiator is the one who's creating the room
 var isInitiator;
+// Hard coded room name for now
 var room = 'test';
 
 
@@ -43,7 +50,7 @@ if (room !== '') {
 socket.on('created', function(room, clientId) {
   console.log('Created room ' + room);
   isInitiator = true;
-
+  getAudio();
 });
 
 socket.on('joined', function(room, clientId) {
@@ -89,22 +96,32 @@ function getAudio(){
 }
 
 function gotStream(stream) {
-  var streamURL = window.URL.createObjectURL(stream);
-  console.log('getUserMedia Audio stream URL: ', streamURL);
-  window.stream = stream;
-  audio.src = streamURL;
-  audio.onloadedmetadata = function() {
-    console.log('Got audio stream');
-  }
+  // var streamURL = window.URL.createObjectURL(stream);
+  // console.log(stream);
+  // console.log('getUserMedia Audio stream URL: ', streamURL);
+  // window.stream = stream;
+  // audio.src = streamURL;
+  // audio.onloadedmetadata = function() {
+  //   console.log('Got audio stream');
+  // }
   // Show a button to record audio
+
+  console.log('Received local stream');
+  localStream = stream;
+  var audioTracks = localStream.getAudioTracks();
+  if(audioTracks.length > 0) {
+    console.log('Using Audio device: ' + audioTracks[0].label);
+  }
+  localStream.getTracks().forEach(
+    function(track) {
+
+    }
+  );
 }
 
 /****************************************************************************
 * WebRTC peer connection and data channel
 ****************************************************************************/
-
-var peerCon;
-var dataChannel;
 
 function signalingMessageCallback(message) {
   if (message.type === 'offer') {
@@ -258,6 +275,16 @@ function sendData() {
 }
 
 function receiveData() {
+
+}
+
+
+// Show and hide buttons whenever user media is loaded
+function show() {
+
+}
+
+function hide() {
 
 }
 
