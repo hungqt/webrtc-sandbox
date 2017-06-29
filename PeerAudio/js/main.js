@@ -209,6 +209,7 @@ function receiveDataChromeFactory() {
       buf = window.buf = new Uint8ClampedArray(parseInt(event.data));
       count = 0;
       console.log('Expecting a total of ' + buf.byteLength + ' bytes');
+      console.log(event.data);
       return;
     }
 
@@ -273,7 +274,7 @@ function recordAudio() {
 }
 
 function sendData() {
-  dataChannel.send()
+  dataChannel.send('HELLO WORLD')
 }
 
 function receiveData(data) {
