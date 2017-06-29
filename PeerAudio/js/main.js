@@ -196,6 +196,7 @@ function onDataChannelCreated(channel) {
     console.log('CHANNEL opened!');
   };
 
+  // onmessage stores an EventHandler for whenever something is fired on the dataChannel
   channel.onmessage = (adapter.browserDetails.browser === 'firefox') ?
   receiveDataFirefoxFactory() : receiveDataChromeFactory();
 }
