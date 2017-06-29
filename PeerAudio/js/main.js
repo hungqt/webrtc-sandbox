@@ -274,7 +274,7 @@ function recordAudio() {
 }
 
 function sendData() {
-  dataChannel.send('HELLO WORLD')
+  dataChannel.send('HELLO WORLD');
 }
 
 function receiveData(data) {
