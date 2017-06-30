@@ -100,16 +100,6 @@ function getAudio(){
 }
 
 function gotStream(stream) {
-  // var streamURL = window.URL.createObjectURL(stream);
-  // console.log(stream);
-  // console.log('getUserMedia Audio stream URL: ', streamURL);
-  // window.stream = stream;
-  // audio.src = streamURL;
-  // audio.onloadedmetadata = function() {
-  //   console.log('Got audio stream');
-  // }
-  // Show a button to record audio
-
   console.log('Received local stream');
   localStream = stream;
   var audioTracks = localStream.getAudioTracks();
