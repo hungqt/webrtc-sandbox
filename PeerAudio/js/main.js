@@ -273,6 +273,7 @@ function recordAudio() {
 
 }
 
+// dataChannel.send(data), data gets received by using event.data
 function sendData() {
   dataChannel.send('HELLO WORLD');
 }
