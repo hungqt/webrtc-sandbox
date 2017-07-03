@@ -11,7 +11,7 @@ var localStream;
 
 // HTML elements //
 var localAudio = document.querySelector('#localAudio');
-// var remoteAudio = document.querySelector('#remoteAudio');
+var remoteAudio = document.querySelector('#remoteAudio');
 var recordBtn = document.getElementById('recordBtn');
 var sendBtn = document.getElementById('sendBtn');
 
