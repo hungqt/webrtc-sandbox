@@ -9,7 +9,7 @@
 var configuration = null;
 var localStream;
 
-// HTML elements
+// HTML elements //
 var localAudio = document.querySelector('#localAudio');
 // var remoteAudio = document.querySelector('#remoteAudio');
 var recordBtn = document.getElementById('recordBtn');
