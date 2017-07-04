@@ -13,11 +13,11 @@ var localStream;
 var localAudio = document.querySelector('#localAudio');
 var remoteAudio = document.querySelector('#remoteAudio');
 var recordBtn = document.getElementById('recordBtn');
-var sendBtn = document.getElementById('sendBtn');
+var stopBtn = document.getElementById('stopBtn');
 
 // Event handlers on the buttons
 // recordBtn.addEventListener('click', recordAudio);
-sendBtn.addEventListener('click', sendData);
+// sendBtn.addEventListener('click', sendData);
 
 // Peerconnection and data channel variables
 var peerCon;
@@ -109,21 +109,31 @@ function gotStream(stream) {
   }
 
   var mediaRecorder = new MediaRecorder(localStream);
+  var chunks = [];
   recordBtn.disabled = false;
 
   recordBtn.onclick = function() {
-    mediaRecorder.start();
-    var chunks = [];
-    mediaRecorder.ondataavailable = function(e) {
-      chunks.push(e.data);
-    }
+    recordBtn.disabled = true;
+    stopBtn.disabled = false;
 
+    mediaRecorder.start();
+    console.log(mediaRecorder.state);
+  }
+
+  stopBtn.onclick = function() {
+    recordBtn.disabled = false;
+    stopBtn.disabled = true;
+    mediaRecorder.requestData();
     var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
     var audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
     console.log(chunks);
-    console.log(mediaRecorder.state);
-    console.log(mediaRecorder.audioBitsPerSecond);
+    console.log(blob);
+  }
+
+  mediaRecorder.ondataavailable = function(e) {
+    chunks.push(e.data);
+    console.log(e.data);
   }
 }
 
