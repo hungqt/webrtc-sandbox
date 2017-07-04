@@ -108,6 +108,8 @@ function gotStream(stream) {
     console.log(localStream.active);
   }
 
+  var mediaRecorder = new MediaRecorder(localStream);
+  recordBtn.disabled = false;
 }
 
 /****************************************************************************
