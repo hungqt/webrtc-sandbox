@@ -105,7 +105,7 @@ function gotStream(stream) {
   var audioTracks = localStream.getAudioTracks();
   if(audioTracks.length > 0) {
     console.log('Using Audio device: ' + audioTracks[0].label);
-    console.log(localStream);
+    console.log(localStream.active);
   }
 
 }
