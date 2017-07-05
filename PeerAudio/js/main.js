@@ -300,11 +300,14 @@ function saveAudioClip(audioblob) {
   var clipLabel = document.createElement('p');
   var audio = document.createElement('audio');
   var deleteButton = document.createElement('button');
+  var sendButton = document.createElement('button');
 
   clipContainer.classList.add('clip');
   audio.setAttribute('controls', '');
   deleteButton.textContent = 'Delete';
-  deleteButton.className = 'delete';
+  deleteButton.className = 'deleteBtn';
+  sendButton.textContent = 'Send';
+  sendButton.className = 'sendBtn'
 
   if(clipName === null) {
     clipLabel.textContent = 'My unnamed clip';
@@ -315,6 +318,7 @@ function saveAudioClip(audioblob) {
   clipContainer.appendChild(audio);
   clipContainer.appendChild(clipLabel);
   clipContainer.appendChild(deleteButton);
+  clipContainer.appendChild(sendButton);
   localClips.appendChild(clipContainer);
 
   audio.controls = true;
