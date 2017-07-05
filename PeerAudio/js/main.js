@@ -13,11 +13,12 @@ var localStream;
 var localAudio = document.querySelector('#localAudio');
 var remoteAudio = document.querySelector('#remoteAudio');
 var recordBtn = document.getElementById('recordBtn');
-var sendBtn = document.getElementById('sendBtn');
+var stopBtn = document.getElementById('stopBtn');
+var localClips = document.querySelector('.local-clips');
 
 // Event handlers on the buttons
-recordBtn.addEventListener('click', recordAudio);
-sendBtn.addEventListener('click', sendData);
+// recordBtn.addEventListener('click', recordAudio);
+// sendBtn.addEventListener('click', sendData);
 
 // Peerconnection and data channel variables
 var peerCon;
@@ -90,7 +91,6 @@ function getAudio(){
   console.log('Getting user media (audio) ...');
   navigator.mediaDevices.getUserMedia({
     audio: true,
-    video: false,
   })
   .then(gotStream)
   // .then(stream => audio.srcObject = gotStream(stream))
@@ -108,6 +108,35 @@ function gotStream(stream) {
     console.log(localStream.active);
   }
 
+  var mediaRecorder = new MediaRecorder(localStream);
+  var chunks = [];
+  recordBtn.disabled = false;
+
+  recordBtn.onclick = function() {
+    recordBtn.disabled = true;
+    stopBtn.disabled = false;
+
+    mediaRecorder.start();
+    console.log(mediaRecorder.state);
+  }
+
+  stopBtn.onclick = function() {
+    recordBtn.disabled = false;
+    stopBtn.disabled = true;
+    mediaRecorder.stop();
+  }
+
+  mediaRecorder.onstop = function(e) {
+    console.log("data available after MediaRecorder.stop() called.");
+    var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+    saveAudioClip(blob);
+    console.log(blob);
+    chunks = [];
+  }
+
+  mediaRecorder.ondataavailable = function(e) {
+    chunks.push(e.data);
+  }
 }
 
 /****************************************************************************
@@ -259,17 +288,38 @@ function receiveDataFirefoxFactory() {
 * UI-related functions and ETC
 ****************************************************************************/
 
-function recordAudio() {
-
-}
-
 // dataChannel.send(data), data gets received by using event.data
 function sendData() {
   dataChannel.send('HELLO WORLD');
 }
 
-function receiveData(data) {
+function saveAudioClip(audioblob) {
+  var clipName = prompt('Enter a name for your sound clip?','My unnamed clip');
+  console.log(clipName);
+  var clipContainer = document.createElement('article');
+  var clipLabel = document.createElement('p');
+  var audio = document.createElement('audio');
+  var deleteButton = document.createElement('button');
 
+  clipContainer.classList.add('clip');
+  audio.setAttribute('controls', '');
+  deleteButton.textContent = 'Delete';
+  deleteButton.className = 'delete';
+
+  if(clipName === null) {
+    clipLabel.textContent = 'My unnamed clip';
+  } else {
+    clipLabel.textContent = clipName;
+  }
+
+  clipContainer.appendChild(audio);
+  clipContainer.appendChild(clipLabel);
+  clipContainer.appendChild(deleteButton);
+  localClips.appendChild(clipContainer);
+
+  audio.controls = true;
+  var audioURL = window.URL.createObjectURL(audioblob);
+  audio.src = audioURL;
 }
 
 
