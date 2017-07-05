@@ -90,7 +90,6 @@ function getAudio(){
   console.log('Getting user media (audio) ...');
   navigator.mediaDevices.getUserMedia({
     audio: true,
-    video: false,
   })
   .then(gotStream)
   // .then(stream => audio.srcObject = gotStream(stream))
