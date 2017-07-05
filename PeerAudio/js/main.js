@@ -131,13 +131,11 @@ function gotStream(stream) {
     var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
     var audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
-    console.log(chunks);
     console.log(blob);
   }
 
   mediaRecorder.ondataavailable = function(e) {
     chunks.push(e.data);
-    console.log('Chunk size: ', chunks);
   }
 }
 
