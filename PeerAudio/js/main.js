@@ -123,7 +123,11 @@ function gotStream(stream) {
   stopBtn.onclick = function() {
     recordBtn.disabled = false;
     stopBtn.disabled = true;
-    mediaRecorder.requestData();
+    mediaRecorder.stop();
+  }
+
+  mediaRecorder.onstop = function(e) {
+    console.log("data available after MediaRecorder.stop() called.");
     var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
     var audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
@@ -131,14 +135,9 @@ function gotStream(stream) {
     console.log(blob);
   }
 
-  mediaRecorder.onstop = function(e) {
-    console.log("data available after MediaRecorder.stop() called.");
-    
-  }
-
   mediaRecorder.ondataavailable = function(e) {
     chunks.push(e.data);
-    console.log(e.data);
+    console.log('Chunk size: ', chunks);
   }
 }
 
