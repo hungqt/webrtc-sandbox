@@ -287,6 +287,7 @@ function receiveDataFirefoxFactory() {
 ****************************************************************************/
 
 // dataChannel.send(data), data gets received by using event.data
+// Sending a blob through RTCPeerConnection is not supported. Must use an ArrayBuffer?
 function sendData(blob) {
   dataChannel.send(blob);
 }
