@@ -287,24 +287,12 @@ function receiveDataFirefoxFactory() {
 * UI-related functions and ETC
 ****************************************************************************/
 
-// function recordAudio() {
-//   mediaRecorder.start();
-//   var chunks = [];
-//   mediaRecorder.ondataavailable = function(e) {
-//     chunks.push(e.data);
-//   }
-//
-//   var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
-//   var audioURL = window.URL.createObjectURL(blob);
-//   audio.src = audioURL;
-// }
-
 // dataChannel.send(data), data gets received by using event.data
 function sendData() {
   dataChannel.send('HELLO WORLD');
 }
 
-function receiveData(data) {
+function saveAudioClip() {
 
 }
 
