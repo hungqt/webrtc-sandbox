@@ -17,7 +17,6 @@ var stopBtn = document.getElementById('stopBtn');
 var localClips = document.querySelector('.local-clips');
 
 // Event handlers on the buttons
-// recordBtn.addEventListener('click', recordAudio);
 // sendBtn.addEventListener('click', sendData);
 
 // Peerconnection and data channel variables
@@ -93,7 +92,6 @@ function getAudio(){
     audio: true,
   })
   .then(gotStream)
-  // .then(stream => audio.srcObject = gotStream(stream))
   .catch(function(e) {
     alert('getUserMedia() error: ' + e.name);
   });
@@ -289,8 +287,8 @@ function receiveDataFirefoxFactory() {
 ****************************************************************************/
 
 // dataChannel.send(data), data gets received by using event.data
-function sendData() {
-  dataChannel.send('HELLO WORLD');
+function sendData(blob) {
+  dataChannel.send(blob);
 }
 
 function saveAudioClip(audioblob) {
@@ -328,6 +326,10 @@ function saveAudioClip(audioblob) {
   deleteButton.onclick = function(e) {
     var evtTgt = e.target;
     evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+  }
+
+  sendButton.onclick = function(e) {
+    sendData(audioblob);
   }
 }
 
