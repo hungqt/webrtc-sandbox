@@ -320,6 +320,11 @@ function saveAudioClip(audioblob) {
   audio.controls = true;
   var audioURL = window.URL.createObjectURL(audioblob);
   audio.src = audioURL;
+
+  deleteButton.onclick = function(e) {
+    var evtTgt = e.target;
+    evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+  }
 }
 
 
