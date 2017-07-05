@@ -131,6 +131,11 @@ function gotStream(stream) {
     console.log(blob);
   }
 
+  mediaRecorder.onstop = function(e) {
+    console.log("data available after MediaRecorder.stop() called.");
+    
+  }
+
   mediaRecorder.ondataavailable = function(e) {
     chunks.push(e.data);
     console.log(e.data);
