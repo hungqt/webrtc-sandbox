@@ -131,6 +131,7 @@ function gotStream(stream) {
     var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
     saveAudioClip(blob);
     console.log(blob);
+    chunks = [];
   }
 
   mediaRecorder.ondataavailable = function(e) {
