@@ -14,6 +14,7 @@ var localAudio = document.querySelector('#localAudio');
 var remoteAudio = document.querySelector('#remoteAudio');
 var recordBtn = document.getElementById('recordBtn');
 var stopBtn = document.getElementById('stopBtn');
+var localClips = document.querySelector('.local-clips');
 
 // Event handlers on the buttons
 // recordBtn.addEventListener('click', recordAudio);
@@ -128,8 +129,7 @@ function gotStream(stream) {
   mediaRecorder.onstop = function(e) {
     console.log("data available after MediaRecorder.stop() called.");
     var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
-    var audioURL = window.URL.createObjectURL(blob);
-    audio.src = audioURL;
+    saveAudioClip(blob);
     console.log(blob);
   }
 
@@ -292,8 +292,33 @@ function sendData() {
   dataChannel.send('HELLO WORLD');
 }
 
-function saveAudioClip() {
+function saveAudioClip(audioblob) {
+  var clipName = prompt('Enter a name for your sound clip?','My unnamed clip');
+  console.log(clipName);
+  var clipContainer = document.createElement('article');
+  var clipLabel = document.createElement('p');
+  var audio = document.createElement('audio');
+  var deleteButton = document.createElement('button');
 
+  clipContainer.classList.add('clip');
+  audio.setAttribute('controls', '');
+  deleteButton.textContent = 'Delete';
+  deleteButton.className = 'delete';
+
+  if(clipName === null) {
+    clipLabel.textContent = 'My unnamed clip';
+  } else {
+    clipLabel.textContent = clipName;
+  }
+
+  clipContainer.appendChild(audio);
+  clipContainer.appendChild(clipLabel);
+  clipContainer.appendChild(deleteButton);
+  localClips.appendChild(clipContainer);
+
+  audio.controls = true;
+  var audioURL = window.URL.createObjectURL(audioblob);
+  audio.src = audioURL;
 }
 
 
