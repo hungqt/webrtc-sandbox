@@ -229,8 +229,9 @@ function receiveDataChromeFactory() {
       console.log(event.data);
       return;
     }
-
+    console.log(event.data);
     var data = new Uint8ClampedArray(event.data);
+    console.log(data);
     buf.set(data, count);
 
     count += data.byteLength;
@@ -289,7 +290,20 @@ function receiveDataFirefoxFactory() {
 // dataChannel.send(data), data gets received by using event.data
 // Sending a blob through RTCPeerConnection is not supported. Must use an ArrayBuffer?
 function sendData(blob) {
-  dataChannel.send(blob);
+  // Split data channel message in chunks of this byte length.
+  // var CHUNK_LEN = 64000;
+  // var len = blob.size,
+  // n = len / CHUNK_LEN | 0;
+
+  var fileReader = new FileReader();
+  var arrayBuffer;
+
+  fileReader.onloadend = () => {
+    arrayBuffer = fileReader.result;
+    dataChannel.send(arrayBuffer);
+  }
+
+  fileReader.readAsArrayBuffer(blob);
 }
 
 function saveAudioClip(audioblob) {
